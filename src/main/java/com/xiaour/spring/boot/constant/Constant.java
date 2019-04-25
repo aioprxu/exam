@@ -4,7 +4,7 @@ public class Constant {
 
     public static String ChoiceQuestion = "choice";
 
-    public static String Normal = "normal";
+    public static int Normal = 0;
 
     public static String FillBlankQuestion = "fill_blank";
 

@@ -19,7 +19,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * @version V2.0.0
  */
 
-@SpringBootApplication(exclude = MybatisAutoConfiguration.class)
+@SpringBootApplication()
 @ServletComponentScan
 @EnableAutoConfiguration
 @MapperScan("com.xiaour.spring.boot.mapper")

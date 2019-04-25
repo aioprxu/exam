@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xiaour.spring.boot.mapper.UserInfoMapper" >
-<!--    <resultMap id="BaseResult" type="com.xiaour.spring.boot.entity.Paper" >-->
-<!--        <id column="id" property="id" jdbcType="INTEGER" />-->
-<!--        <result column="question" property="question" jdbcType="VARCHAR" />-->
-<!--        <result column="age" property="age" jdbcType="VARCHAR" />-->
+<mapper namespace="com.xiaour.spring.boot.mapper.PaperMapper" >
+    <resultMap id="BaseResult" type="com.xiaour.spring.boot.entity.Paper" >
 
-<!--    </resultMap>-->
+    </resultMap>
 
 
 
-    <select id="paperList" resultMap="com.xiaour.spring.boot.entity.Paper" >
+    <select id="paperList" resultMap="BaseResult" >
     select * from question
   </select>
 
-    <select id="getPaperByType" resultMap="com.xiaour.spring.boot.entity.Paper" parameterType="String" >
+    <select id="getPaperByType" resultMap="BaseResult" parameterType="String" >
         select * from question where type = #{type}
     </select>
 
-    <select id="getPaperByModel" resultMap="com.xiaour.spring.boot.entity.Paper" parameterType="String" >
+    <select id="getPaperByModel" resultMap="BaseResult" parameterType="int" >
         select * from question where type = #{model}
     </select>
 
+    <select id="getPaperByModelAndType" resultMap="BaseResult">
+        select * from question where model_id = #{model} and question_type = #{type}
+    </select>
 
 
 </mapper>

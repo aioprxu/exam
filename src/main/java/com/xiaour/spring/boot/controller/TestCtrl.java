@@ -1,6 +1,8 @@
 package com.xiaour.spring.boot.controller;
 
 
+import com.xiaour.spring.boot.mapper.PaperMapper;
+import com.xiaour.spring.boot.service.MakePaperService;
 import com.xiaour.spring.boot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -29,8 +31,11 @@ public class TestCtrl {
 	@Autowired
 	private RedisService redisService;
 	
-	@Autowired  
-    private UserInfoMapper userInfoMapper;  
+	@Autowired
+    private UserInfoMapper userInfoMapper;
+
+	@Autowired
+    private MakePaperService makePaperService;
 
     @RequestMapping(value="/index")
     public String index(){
@@ -80,6 +85,15 @@ public class TestCtrl {
 			e.printStackTrace();
 		}
 		return "";  
+    }
+
+    /**
+     * 获取试题
+     * @return
+     */
+    @RequestMapping("/getPaper")
+    public String getPaper(){
+        return makePaperService.getPaper(1);
     }
 
 
