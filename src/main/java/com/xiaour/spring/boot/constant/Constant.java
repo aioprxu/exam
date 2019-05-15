@@ -2,14 +2,14 @@ package com.xiaour.spring.boot.constant;
 
 public class Constant {
 
-    public static String ChoiceQuestion = "choice";
+    public static int ChoiceQuestion = 2;
 
     public static int Normal = 0;
 
-    public static String FillBlankQuestion = "fill_blank";
+    public static int FillBlankQuestion = 1;
 
-    public static String JudgeQuestion = "judge";
+    public static int JudgeQuestion = 4;
 
-    public static String SubjectiveQuestion = "subjective";
+    public static int SubjectiveQuestion = 5;
 
 }

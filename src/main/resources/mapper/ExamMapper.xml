@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaour.spring.boot.mapper.ExamMapper" >
+    <resultMap id="BaseResult" type="com.xiaour.spring.boot.entity.Exam" >
+
+    </resultMap>
+
+    <select id="queryAllExam" resultMap="BaseResult" >
+    select * from exam
+    </select>
+
+    <select id="queryExamByModel" resultMap="BaseResult" parameterType="int" >
+        select * from exam where model_id = #{model}
+    </select>
+
+    <select id="queryExamById" resultMap="BaseResult" parameterType="int">
+        select * from exam where exam_id = #{exam}
+    </select>
+
+    <update id="updateExam"  parameterType="com.xiaour.spring.boot.entity.Exam" >
+        update exam set name = #{name}, paper_id = #{paperId}
+        , is_open = #{isOpen}, start_time = #{startTime}, stop_time = #{stopTime} where exam_id = #{examId}
+    </update>
+
+    <insert id="addExam" parameterType="com.xiaour.spring.boot.entity.Exam" >
+        insert into exam (model_id, name, paper_id, is_open, start_time, stop_time) value
+        (#{modelId}, #{name}, #{paperId}, #{isOpen}, #{startTime}, #{stopTime})
+    </insert>
+
+    <delete id="delExam" parameterType="int">
+        delete from exam where exam_id = #{examId}
+    </delete>
+
+
+</mapper>

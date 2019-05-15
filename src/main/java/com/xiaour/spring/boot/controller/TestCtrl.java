@@ -1,17 +1,16 @@
 package com.xiaour.spring.boot.controller;
 
 
-import com.xiaour.spring.boot.mapper.PaperMapper;
+import com.alibaba.fastjson.JSON;
+import com.xiaour.spring.boot.entity.Question;
 import com.xiaour.spring.boot.service.MakePaperService;
 import com.xiaour.spring.boot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
-import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xiaour.spring.boot.entity.UserInfo;
+import com.xiaour.spring.boot.entity.User;
 import com.xiaour.spring.boot.mapper.UserInfoMapper;
 import com.xiaour.spring.boot.utils.JsonUtil;
 
@@ -79,7 +78,7 @@ public class TestCtrl {
     @RequestMapping("/getUser/{id}")  
     public String get(@PathVariable("id")int id){  
         try {
-        	UserInfo user= userInfoMapper.selectByPrimaryKey(id);
+        	User user= userInfoMapper.selectByPrimaryKey(id);
 			return JsonUtil.getJsonString(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,7 +92,7 @@ public class TestCtrl {
      */
     @RequestMapping("/getPaper")
     public String getPaper(){
-        return makePaperService.getPaper(1);
+        return JSON.toJSONString(makePaperService.getPaper(1));
     }
 
 

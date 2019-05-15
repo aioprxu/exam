@@ -1,22 +1,8 @@
-package com.xiaour.spring.boot.entity;
+package com.xiaour.spring.boot.request;
 
-import java.util.Map;
-
-public class Paper {
-
-    private Integer paperId;
-
-    private String name;
-
+public class AddPaperReq {
     private Integer modelId;
-
-    public Integer getPaperId() {
-        return paperId;
-    }
-
-    public void setPaperId(Integer paperId) {
-        this.paperId = paperId;
-    }
+    private String name;
 
     public Integer getModelId() {
         return modelId;

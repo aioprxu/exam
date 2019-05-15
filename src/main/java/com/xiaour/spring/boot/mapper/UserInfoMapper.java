@@ -1,11 +1,21 @@
 package com.xiaour.spring.boot.mapper;
 
-import com.xiaour.spring.boot.entity.UserInfo;
-import org.springframework.stereotype.Component;
+import com.xiaour.spring.boot.entity.User;
 
-//@Component
+import java.util.List;
+
+
 public interface UserInfoMapper {
 
-    UserInfo selectByPrimaryKey(Integer id);
+    User selectByPrimaryKey(int id);
 
+    String getPassword(String name);
+
+    List<User> queryAllUser();
+
+    boolean updateUser(User user);
+
+    boolean delUser(int id);
+
+    boolean insertUser(User user);
 }

@@ -5,23 +5,28 @@
 
     </resultMap>
 
+    <insert id="addPaper" useGeneratedKeys="true" keyProperty="paperId" parameterType="com.xiaour.spring.boot.entity.Paper">
+        insert into paper (model_id, name) VALUE (#{modelId}, #{name})
+    </insert>
 
-
-    <select id="paperList" resultMap="BaseResult" >
-    select * from question
-  </select>
-
-    <select id="getPaperByType" resultMap="BaseResult" parameterType="String" >
-        select * from question where type = #{type}
+    <select id="queryPaperByExam" resultMap="BaseResult" parameterType="int">
+        select * from paper where model_id = #{model}
     </select>
 
-    <select id="getPaperByModel" resultMap="BaseResult" parameterType="int" >
-        select * from question where type = #{model}
+    <delete id="delPaper" parameterType="int">
+        delete from paper where paper_id = #{id}
+    </delete>
+
+    <update id="updatePaper" parameterType="com.xiaour.spring.boot.entity.Paper">
+        update paper set model_id = #{modelId}, name = #{name} where paper_id = #{paperId}
+    </update>
+
+    <select id="queryAllPaper" resultMap="BaseResult">
+        select * from paper
     </select>
 
-    <select id="getPaperByModelAndType" resultMap="BaseResult">
-        select * from question where model_id = #{model} and question_type = #{type}
+    <select id="queryPaperById" parameterType="int" resultType="com.xiaour.spring.boot.entity.Paper">
+        select * from paper where paper_id = #{id}
     </select>
-
 
 </mapper>

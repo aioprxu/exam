@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaour.spring.boot.mapper.ResultMapper" >
+    <resultMap id="BaseResult" type="com.xiaour.spring.boot.entity.Result" >
+
+    </resultMap>
+
+    <select id="queryResultByUser" resultMap="BaseResult" parameterType="int">
+    select * from result where user_id = #{user}
+    </select>
+
+    <select id="queryResultByExam" resultMap="BaseResult" parameterType="int">
+        select * from result where exam_id = #{exam}
+    </select>
+
+
+</mapper>

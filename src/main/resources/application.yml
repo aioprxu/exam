@@ -6,12 +6,12 @@ server :
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/test_data?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://127.0.0.1:3306/exam
         username: root
-        password: 123456
+        password: root
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         filters: stat
         maxActive: 20
         initialSize: 1
@@ -19,8 +19,8 @@ spring:
         minIdle: 1
         timeBetweenEvictionRunsMillis: 60000
         minEvictableIdleTimeMillis: 300000
-        validationQuery: select 'x'
-        testWhileIdle: true
+        validationQuery: select 1
+        testWhileIdle: false
         testOnBorrow: false
         testOnReturn: false
         poolPreparedStatements: true

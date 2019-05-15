@@ -1,7 +1,11 @@
 package com.xiaour.spring.boot.service;
 
+import com.xiaour.spring.boot.entity.Question;
+
+import java.util.List;
+
 public interface MakePaperService {
 
-    String getPaper(int model);
+    List<Question> getPaper(int model);
 
 }
