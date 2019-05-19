@@ -87,7 +87,7 @@ public class PaperController {
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setCode(200);
         baseResponse.setMessage("true");
-        baseResponse.setData(null);
+        baseResponse.setData(paperService.getFile(examId));
         return JSON.toJSONString(baseResponse);
     }
 

@@ -9,6 +9,8 @@ public interface AnswerMapper {
 
     boolean insertAnswer(Answer answer);
 
-    List<Answer> getAnswer(@Param("userId") int userId, @Param("examId") int examId);
+    List<Answer> getAnswer(@Param("exam") int exam, @Param("user") int user);
+
+    boolean updateAnswer(Answer answer);
 
 }

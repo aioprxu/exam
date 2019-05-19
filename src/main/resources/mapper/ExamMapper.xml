@@ -17,12 +17,12 @@
         select * from exam where exam_id = #{exam}
     </select>
 
-    <update id="updateExam"  parameterType="com.xiaour.spring.boot.entity.Exam" >
+    <update id="updateExam" parameterType="com.xiaour.spring.boot.entity.Exam" >
         update exam set name = #{name}, paper_id = #{paperId}
         , is_open = #{isOpen}, start_time = #{startTime}, stop_time = #{stopTime} where exam_id = #{examId}
     </update>
 
-    <insert id="addExam" parameterType="com.xiaour.spring.boot.entity.Exam" >
+    <insert id="addExam" useGeneratedKeys="true" keyProperty="examId" parameterType="com.xiaour.spring.boot.entity.Exam" >
         insert into exam (model_id, name, paper_id, is_open, start_time, stop_time) value
         (#{modelId}, #{name}, #{paperId}, #{isOpen}, #{startTime}, #{stopTime})
     </insert>

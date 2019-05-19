@@ -13,5 +13,13 @@
         select * from result where exam_id = #{exam}
     </select>
 
+    <insert id="addResult" parameterType="com.xiaour.spring.boot.entity.Result">
+        insert into result (exam_id, user_id, score) value (#{examId}, #{userId}, #{score})
+    </insert>
+
+    <delete id="delResult" parameterType="int">
+        delete from result where exam_id = #{exam} and user_id = #{user}
+    </delete>
+
 
 </mapper>

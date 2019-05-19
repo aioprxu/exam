@@ -11,9 +11,12 @@
         insert into answer (exam_id, user_id, question_id, answer, score) value (#{examId}, #{userId}, #{questionId}, #{answer}, #{score})
     </insert>
 
-    <select id="getAnswer" resultMap="BaseResult" parameterType="int">
-        select * from answer where exam_id = #{examId} and user_id = #{userId}
+    <select id="getAnswer" resultMap="BaseResult">
+        select * from answer where exam_id = #{exam} and user_id = #{user}
     </select>
 
+    <update id="updateAnswer" parameterType="com.xiaour.spring.boot.entity.Answer">
+        update answer set exam_id = #{examId}, user_id = #{userId}, question_id = #{questionId}, answer = #{answer}, score = #{score} where id = #{id};
+    </update>
 
 </mapper>

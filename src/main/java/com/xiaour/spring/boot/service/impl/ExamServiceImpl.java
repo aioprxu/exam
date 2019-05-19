@@ -1,10 +1,7 @@
 package com.xiaour.spring.boot.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.xiaour.spring.boot.entity.Answer;
-import com.xiaour.spring.boot.entity.Exam;
-import com.xiaour.spring.boot.entity.Paper;
-import com.xiaour.spring.boot.entity.Question;
+import com.xiaour.spring.boot.entity.*;
 import com.xiaour.spring.boot.mapper.*;
 import com.xiaour.spring.boot.request.SubmitPaperReq;
 import com.xiaour.spring.boot.response.GetPaperRsp;
@@ -36,6 +33,9 @@ public class ExamServiceImpl implements ExamService {
     @Autowired
     private PaperQuestionMapper paperQuestionMapper;
 
+    @Autowired
+    private ResultMapper resultMapper;
+
 
     @Override
     public GetPaperRsp getPaper(int exam) {
@@ -61,11 +61,13 @@ public class ExamServiceImpl implements ExamService {
     public boolean saveAnswer(SubmitPaperReq req) {
         Integer paperId = examMapper.queryExamById(req.getExamId()).getPaperId();
         List<Integer> questionList = paperQuestionMapper.queryQuestionByPaper(paperId);
+        int score = 0;
         for (int i = 0; i<req.getAnswers().size(); i++){
             Question question = questionMapper.getQuestionById(questionList.get(i));
             Answer answer = new Answer();
             if (question.getAnswer().equals(req.getAnswers().get(i))) {
                 answer.setScore(3);
+                score+=3;
             } else {
                 answer.setScore(0);
             }
@@ -75,6 +77,11 @@ public class ExamServiceImpl implements ExamService {
             answer.setAnswer(req.getAnswers().get(i));
             answerMapper.insertAnswer(answer);
         }
+        Result result = new Result();
+        result.setExamId(req.getExamId());
+        result.setScore(score);
+        result.setUserId(req.getUserId());
+        resultMapper.addResult(result);
         return true;
     }
 }

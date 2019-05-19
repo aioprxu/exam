@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaour.spring.boot.mapper.QuestionMapper" >
+    <resultMap id="BaseResult" type="com.xiaour.spring.boot.entity.Question" >
+
+    </resultMap>
+
+
+
+    <select id="questionList" resultMap="BaseResult" >
+    select * from question
+    </select>
+
+    <select id="getQuestionByType" resultMap="BaseResult" parameterType="String" >
+        select * from question where question_type = #{type}
+    </select>
+
+    <select id="getQuestionByModel" resultMap="BaseResult" parameterType="int" >
+        select * from question where model_id = #{model}
+    </select>
+
+    <select id="getQuestionByModelAndType" resultMap="BaseResult">
+        select * from question where model_id = #{model} and question_type = #{type}
+    </select>
+
+    <select id="getQuestionById" resultMap="BaseResult">
+        select * from question where id = #{id}
+    </select>
+
+    <update id="updateQuestion" parameterType="com.xiaour.spring.boot.entity.Question">
+        update question set model_id = #{modelId}, question_type = #{questionType},  questionstem = #{questionstem},
+        options = #{options}, answer = #{answer} where id = #{id}
+    </update>
+
+    <delete id="delQuestion" parameterType="int">
+        delete from question where id = #{id}
+    </delete>
+
+    <insert id="addQuestion" parameterType="com.xiaour.spring.boot.entity.Question">
+        insert into question (model_id, question_type, questionstem, options, answer) values (#{modelId},
+        #{questionType}, #{questionstem}, #{options}, #{answer});
+    </insert>
+
+
+</mapper>

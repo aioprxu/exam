@@ -3,9 +3,11 @@ package com.xiaour.spring.boot.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.xiaour.spring.boot.entity.Question;
+import com.xiaour.spring.boot.mapper.AnswerMapper;
 import com.xiaour.spring.boot.service.MakePaperService;
 import com.xiaour.spring.boot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,9 @@ public class TestCtrl {
 
 	@Autowired
     private MakePaperService makePaperService;
+
+	@Autowired
+    private AnswerMapper answerMapper;
 
     @RequestMapping(value="/index")
     public String index(){
@@ -93,6 +98,11 @@ public class TestCtrl {
     @RequestMapping("/getPaper")
     public String getPaper(){
         return JSON.toJSONString(makePaperService.getPaper(1));
+    }
+
+    @GetMapping("/getAnswer")
+    public String getAnswer() {
+        return JSON.toJSONString(answerMapper.getAnswer(10,1));
     }
 
 

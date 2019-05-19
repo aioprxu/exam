@@ -69,6 +69,7 @@ public class ExamManageServiceImpl implements ExamManageService {
         List<ExamReq> examReqList = new ArrayList<>();
         for(Integer examId : examUserMapper.queryExamByUser(userId)){
             Exam exam = examMapper.queryExamById(examId);
+            System.out.println(JSON.toJSONString(examId));
             ExamReq examReq = new ExamReq();
             examReq.setExamId(exam.getExamId());
             examReq.setIsOpen(exam.getIsOpen());
@@ -104,9 +105,6 @@ public class ExamManageServiceImpl implements ExamManageService {
     @Override
     public boolean addExam(ExamReq exam) {
         List<String> userList = Arrays.asList(exam.getUserId().split(","));
-        for(String userId : userList){
-            examUserMapper.addExamUser(exam.getExamId(), Integer.parseInt(userId));
-        }
         Exam exam1 = new Exam();
         exam1.setExamId(exam.getExamId());
         exam1.setIsOpen(exam.getIsOpen());
@@ -115,7 +113,11 @@ public class ExamManageServiceImpl implements ExamManageService {
         exam1.setStartTime(exam.getStartTime());
         exam1.setStopTime(exam.getStopTime());
         exam1.setModelId(exam.getModelId());
-        return examMapper.addExam(exam1);
+        examMapper.addExam(exam1);
+        for(String userId : userList){
+            examUserMapper.addExamUser(exam1.getExamId(), Integer.parseInt(userId));
+        }
+        return true;
     }
 
     @Override

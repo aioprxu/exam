@@ -1,17 +1,21 @@
 package com.xiaour.spring.boot.service.impl;
 
+import com.xiaour.spring.boot.entity.Exam;
 import com.xiaour.spring.boot.entity.Paper;
 import com.xiaour.spring.boot.entity.Question;
+import com.xiaour.spring.boot.mapper.ExamMapper;
 import com.xiaour.spring.boot.mapper.PaperMapper;
 import com.xiaour.spring.boot.mapper.PaperQuestionMapper;
 import com.xiaour.spring.boot.mapper.QuestionMapper;
 import com.xiaour.spring.boot.request.AddPaperReq;
 import com.xiaour.spring.boot.request.PaperReq;
+import com.xiaour.spring.boot.service.ExamService;
 import com.xiaour.spring.boot.service.MakePaperService;
 import com.xiaour.spring.boot.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +30,12 @@ public class PaperServiceImpl implements PaperService {
 
     @Autowired
     private MakePaperService makePaperService;
+
+    @Autowired
+    private ExamMapper examMapper;
+
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @Override
     public boolean addPaper(AddPaperReq addPaperReq) {
@@ -63,6 +73,17 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public List<Paper> getAllPaper() {
         return paperMapper.queryAllPaper();
+    }
+
+    @Override
+    public List<Question> getFile(int examId) {
+        Exam exam = examMapper.queryExamById(examId);
+        List<Integer> questions = paperQuestionMapper.queryQuestionByPaper(exam.getPaperId());
+        List<Question> questionList = new ArrayList<>();
+        for(Integer q : questions){
+            questionList.add(questionMapper.getQuestionById(q));
+        }
+        return questionList;
     }
 
 
