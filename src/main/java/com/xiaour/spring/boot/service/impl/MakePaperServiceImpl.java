@@ -6,6 +6,7 @@ import com.xiaour.spring.boot.entity.Paper;
 import com.xiaour.spring.boot.entity.Question;
 import com.xiaour.spring.boot.mapper.QuestionMapper;
 import com.xiaour.spring.boot.service.MakePaperService;
+import com.xiaour.spring.boot.service.RedisService;
 import com.xiaour.spring.boot.service.ZookeeperService;
 import com.xiaour.spring.boot.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,19 @@ public class MakePaperServiceImpl implements MakePaperService {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private ZookeeperService zookeeperService;
+    private RedisService redisService;
 
     @Override
     public List<Question> getPaper(int model) {
-        String config = zookeeperService.getConfig();
-        int [] configs = {2,2,2,1,1,1,1,1};
         List<Question> paperList = new ArrayList<>();
-        if (config != null) {
+        String config = "";
+        int [] configs = {2,2,2,1,1,1,1,1};
+        try {
+            config = redisService.get("config");
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        if (config != null && !config.equals("")) {
             String [] c = config.split(",");
             paperList.addAll(getChoiceQuestion(model,Integer.parseInt(c[0]),Integer.parseInt(c[1])));
             paperList.addAll(getFillBlankQuestion(model,Integer.parseInt(c[2]),Integer.parseInt(c[3])));

@@ -3,11 +3,22 @@ create table `question` (
 `id` int not null AUTO_INCREMENT,
 `model_id` int not null,
 `question_type` int not null,
+`difficulty` int not null,
+`type` int not null commit '发动机',
 `questionstem` varchar(50) not null,
 `options` varchar(50) not null,
 `answer` varchar(50) not null,
 PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+机型
+0.水陆两用飞机
+1.喷气式飞机
+2.水陆运输飞机
+3.直升机
+4.螺旋桨飞机
+5.螺旋桨式喷气飞机
 
 insert into question (model_id, question_type, questionstem, options, answer) value (1, 2,'???','1,2,3','A');
 insert into question (model_id, question_type, questionstem, options, answer) value (1, 2,'这题选a','1,2,3','A');
@@ -114,3 +125,14 @@ PRIMARY KEY (`id`)
 
 insert into user (name, password, profession) value ("admin", 123456, "管理员");
 insert into user (name, password, profession) value ("user", 123, "喵喵");
+
+
+create table `cache` (
+`id` int not null AUTO_INCREMENT,
+`exam_id` int not null,
+`user_id` int not null,
+`answer` varchar(255) not null,
+PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+insert into cache ( exam_id, user_id, answer)

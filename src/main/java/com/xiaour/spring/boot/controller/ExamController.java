@@ -1,10 +1,12 @@
 package com.xiaour.spring.boot.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaour.spring.boot.entity.Cache;
 import com.xiaour.spring.boot.entity.Exam;
 import com.xiaour.spring.boot.request.ExamReq;
 import com.xiaour.spring.boot.request.SubmitPaperReq;
 import com.xiaour.spring.boot.response.BaseResponse;
+import com.xiaour.spring.boot.service.CacheService;
 import com.xiaour.spring.boot.service.ExamManageService;
 import com.xiaour.spring.boot.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ExamController {
 
     @Autowired
     private ExamService examService;
+
+    @Autowired
+    private CacheService cacheService;
 
     @PostMapping("/add")
     public String addExam(@RequestBody String data) {
@@ -109,12 +114,42 @@ public class ExamController {
         data = data.replace("{\"data\":\"","");
         data = data.substring(0,data.length()-2);
         SubmitPaperReq req = JSON.parseObject(data, SubmitPaperReq.class);
-        System.out.println(JSON.toJSONString(req));
         BaseResponse baseResponse = new BaseResponse();
         if(examService.saveAnswer(req)) {
             baseResponse.setCode(200);
             baseResponse.setMessage("true");
         } else {
+            baseResponse.setCode(1000);
+            baseResponse.setMessage("false");
+        }
+        return JSON.toJSONString(baseResponse);
+    }
+
+    @PostMapping("/saveCache")
+    public String saveCache(@RequestBody String data) {
+        data = data.replace("\\","");
+        data = data.replace("{\"data\":\"","");
+        data = data.substring(0,data.length()-2);
+        Cache cache = JSON.parseObject(data, Cache.class);
+        BaseResponse baseResponse = new BaseResponse();
+        if(cacheService.addCache(cache)) {
+            baseResponse.setCode(200);
+            baseResponse.setMessage("true");
+        } else {
+            baseResponse.setCode(1000);
+            baseResponse.setMessage("false");
+        }
+        return JSON.toJSONString(baseResponse);
+    }
+
+    @GetMapping("/getCache")
+    public String getCache(Integer examId, Integer userId) {
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setCode(200);
+        baseResponse.setMessage("true");
+        try {
+            baseResponse.setData(cacheService.getCache(examId,userId));
+        } catch (Exception e){
             baseResponse.setCode(1000);
             baseResponse.setMessage("false");
         }
